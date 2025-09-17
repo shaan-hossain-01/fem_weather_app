@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <div>
-        <h1>Hello Weather app</h1>
+        <h1 className="text-8xl text-blue-900">Hello Weather app</h1>
       </div>
     </>
   );
