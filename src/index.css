@@ -53,3 +53,30 @@
   --font-size-base: 18px;
 }
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body{
+    font-family: var(--font-sans);
+    background-color: var(--color-neutral-900);
+    color: var(--color-neutral-0);
+}
+
+h1{
+    @apply text-[52px] font-bold leading-[60px] font-heading;
+}
+
+h2{
+    @apply text-[28px] font-bold leading-[36px] font-sans;
+}
+
+h3{
+  @apply text-[20px] font-semibold leading-[28px] font-sans;
+}
+
+p{
+    @apply text-[18px] font-normal leading-[28px] font-sans;
+}
