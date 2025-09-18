@@ -1,4 +1,4 @@
-const SearchBox = ({ onSubmit, searchQuery, setSearchQuery, isLoading }) => {
+const SearchBox = ({ onSubmit,isLoading }) => {
 
   return (
     <div className="flex justify-center">
@@ -14,8 +14,8 @@ const SearchBox = ({ onSubmit, searchQuery, setSearchQuery, isLoading }) => {
             name="location"
             type="text"
             placeholder="Search for a place..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            // value={searchQuery}
+            // onChange={(e) => setSearchQuery(e.target.value)}
             disabled={isLoading}
           />
         </div>

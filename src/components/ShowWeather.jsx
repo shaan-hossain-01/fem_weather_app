@@ -35,12 +35,7 @@ const ShowWeather = () => {
 
   return (
     <>
-      <SearchBox
-        onSubmit={handleSubmit}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        isLoading={isLoading}
-      />
+      <SearchBox onSubmit={handleSubmit} isLoading={isLoading} />
       {isLoading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {!isLoading && weatherData && <WeatherData data={weatherData} />}
