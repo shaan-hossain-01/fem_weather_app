@@ -1,12 +1,42 @@
-const ShowWeather = () => {
-  return (
-    <div className="flex justify-center">
-      <form className="flex gap-4 max-w-xl w-full">
-        <input className="flex-1" type="text" placeholder="Enter city name" />
-        <button className="bg-blue-500 text-white px-6 py-4 rounded-lg font-medium " type="submit">Get Weather</button>
-      </form>
-    </div>
-  );
-}
+import SearchBox from "./SearchBox";
+import WeatherData from "./WeatherData";
+import { getWeatherData } from "../api/weatherService";
+import { useEffect, useState } from "react";
 
-export default ShowWeather
+const ShowWeather = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [weatherData, setWeatherData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchWeather = async (location) => {
+    setIsLoading(true);
+    try {
+      const fetchedData = await getWeatherData(location);
+      setWeatherData(fetchedData);
+      setIsLoading(false);
+    } catch (err) {
+      setError(err.message);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!searchQuery) return;
+    fetchWeather(searchQuery);
+  }, [searchQuery]);
+
+  function handleSubmit(e){
+    e.preventDefault();
+    setSearchQuery(e.target.elements.location.value);
+  }
+
+  return (
+    <>
+      <SearchBox />
+      <WeatherData data={data} />
+    </>
+  );
+};
+
+export default ShowWeather;
