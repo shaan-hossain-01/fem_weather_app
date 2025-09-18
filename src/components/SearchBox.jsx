@@ -1,9 +1,8 @@
-import React from 'react'
+const SearchBox = ({ onSubmit, searchQuery, setSearchQuery, isLoading }) => {
 
-const SearchBox = () => {
   return (
     <div className="flex justify-center">
-      <form className="flex gap-4 max-w-xl w-full">
+      <form className="flex gap-4 max-w-xl w-full" onSubmit={onSubmit}>
         <div className="relative flex-1 flex bg-neutral-800 items-center rounded-lg px-6 py-4 gap-4">
           <img
             src="/src/assets/images/icon-search.svg"
@@ -12,8 +11,12 @@ const SearchBox = () => {
           />
           <input
             className="w-full bg-neutral-800 text-white placeholder:text-neutral-200  placeholder:text-xl placeholder:leading-6 outline-none "
+            name="location"
             type="text"
             placeholder="Search for a place..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            disabled={isLoading}
           />
         </div>
         <button
@@ -25,6 +28,6 @@ const SearchBox = () => {
       </form>
     </div>
   );
-}
+};
 
-export default SearchBox
+export default SearchBox;

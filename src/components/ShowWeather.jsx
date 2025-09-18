@@ -13,10 +13,12 @@ const ShowWeather = () => {
     setIsLoading(true);
     try {
       const fetchedData = await getWeatherData(location);
+      console.log(fetchedData);
       setWeatherData(fetchedData);
-      setIsLoading(false);
     } catch (err) {
       setError(err.message);
+      console.log(err);
+    } finally {
       setIsLoading(false);
     }
   };
@@ -26,15 +28,22 @@ const ShowWeather = () => {
     fetchWeather(searchQuery);
   }, [searchQuery]);
 
-  function handleSubmit(e){
+  function handleSubmit(e) {
     e.preventDefault();
     setSearchQuery(e.target.elements.location.value);
   }
 
   return (
     <>
-      <SearchBox />
-      <WeatherData data={data} />
+      <SearchBox
+        onSubmit={handleSubmit}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isLoading={isLoading}
+      />
+      {isLoading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+      {!isLoading && weatherData && <WeatherData data={weatherData} />}
     </>
   );
 };
