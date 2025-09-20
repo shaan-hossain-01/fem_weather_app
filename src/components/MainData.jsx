@@ -1,24 +1,31 @@
+import MainTemp from "./MainTemp";
+
 const MainData = ({ data }) => {
+  const location = data.location ? data.location.split(",")[0] : "";
+  const {
+    temperature_2m: actualTemperature,
+    apparent_temperature: feelsLikeTemperature,
+    wind_speed_10m: windSpeed,
+    precipitation,
+    relative_humidity_2m: humidity,
+  } = data.current || {};
   return (
     <div className="flex-2 flex flex-col gap-8">
-      <div className="flex-2 background flex justify-between items-center p-6">
-        <h2 className="text-3xl text-gray-800">
-          {data.location ? data.location.split(",")[0] : ""}
-        </h2>
-        <div className="flex gap-2">
-          <p className="text-black text-7xl">
-            {data.current ? Math.round(data.current.temperature_2m) : ""}
-          </p>
-          <p className="text-black text-7xl">
-            {data.current_units?.temperature_2m}
-          </p>
+      <MainTemp location={location} actualTemperature={actualTemperature} />
+      <div className="flex-1 flex gap-6">
+        
+        <div className="flex flex-col bg-neutral-800 stroke-neutral-600 rounded-xl flex-1">
+          <p>Wind Speed</p>
+          <div>{Math.round(windSpeed)}</div>
         </div>
-      </div>
-      <div className="flex-1 bg-yellow-300 flex gap-6">
-        <div className="bg-orange-500 flex-1"></div>
-        <div className="bg-orange-500 flex-1"></div>
-        <div className="bg-orange-500 flex-1"></div>
-        <div className="bg-orange-500 flex-1"></div>
+        <div className="flex flex-col bg-neutral-800 stroke-neutral-600 rounded-xl flex-1">
+          <p>Precipitation</p>
+          <div>{Math.round(precipitation)}</div>
+        </div>
+        <div className="flex flex-col bg-neutral-800 stroke-neutral-600 rounded-xl flex-1">
+          <p>Humidity</p>
+          <div>{Math.round(humidity)}</div>
+        </div>
       </div>
     </div>
   );

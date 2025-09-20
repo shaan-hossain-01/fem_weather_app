@@ -8,11 +8,9 @@ const WeatherData = ({ data }) => {
   console.table(data); // Table format (good for arrays)
   return (
     <div className="grid grid-cols-3 gap-4 min-h-96 mt-12 h-[693px]">
-      <div className="bg-red-600 h-full w-full col-span-2 flex flex-col gap-8">
+      <div className="h-full w-full col-span-2 flex flex-col gap-8">
         {/* Weather Information will go here */}
-        <div className="flex-2 flex flex-col gap-8">
           <MainData data={data} />
-        </div>
         <div className="flex flex-1 flex-col gap-4">
           <h3>Daily forecast</h3>
           <div className="flex flex-1 bg-amber-950 gap-4">
