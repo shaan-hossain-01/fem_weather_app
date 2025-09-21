@@ -51,6 +51,9 @@
 
   /* Base Typography */
   --font-size-base: 18px;
+
+  /* Background Image */
+  --bg-background: url('/src/assets/images/bg-today-large.svg');
 }
 
 *,
@@ -81,3 +84,9 @@ h3 {
   @apply text-[20px] font-semibold leading-[28px] font-sans;
 }
 
+.background {
+  background-image: var(--bg-background);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+}
