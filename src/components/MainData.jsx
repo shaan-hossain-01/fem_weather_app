@@ -1,3 +1,4 @@
+import MainOthers from "./MainOthers";
 import MainTemp from "./MainTemp";
 
 const MainData = ({ data }) => {
@@ -13,19 +14,10 @@ const MainData = ({ data }) => {
     <div className="flex-2 flex flex-col gap-8">
       <MainTemp location={location} actualTemperature={actualTemperature} />
       <div className="flex-1 flex gap-6">
-        
-        <div className="flex flex-col bg-neutral-800 stroke-neutral-600 rounded-xl flex-1">
-          <p>Wind Speed</p>
-          <div>{Math.round(windSpeed)}</div>
-        </div>
-        <div className="flex flex-col bg-neutral-800 stroke-neutral-600 rounded-xl flex-1">
-          <p>Precipitation</p>
-          <div>{Math.round(precipitation)}</div>
-        </div>
-        <div className="flex flex-col bg-neutral-800 stroke-neutral-600 rounded-xl flex-1">
-          <p>Humidity</p>
-          <div>{Math.round(humidity)}</div>
-        </div>
+        <MainOthers data={feelsLikeTemperature} topic={"Feels Like"} />
+        <MainOthers data={precipitation} topic={"Precipitation"} />
+        <MainOthers data={windSpeed} topic={"Wind Speed"} />
+        <MainOthers data={humidity} topic={"Humidity"} />
       </div>
     </div>
   );
