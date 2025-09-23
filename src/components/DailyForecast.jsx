@@ -1,7 +1,4 @@
-import {
-  getWeatherDescription,
-  getWeatherCategory,
-} from "../utils/weatherCodeUtils";
+import { getWeatherCategory } from "../utils/weatherCodeUtils";
 import WeatherIcon from "./WeatherIcon";
 
 const DailyForecast = ({
@@ -22,8 +19,7 @@ const DailyForecast = ({
     console.error("Error formatting date:", error);
   }
 
-  // Get weather description from code
-  const weatherDescription = getWeatherDescription(weatherCode);
+  // Get weather category for styling
   const weatherCategory = getWeatherCategory(weatherCode);
 
   return (
@@ -31,8 +27,7 @@ const DailyForecast = ({
       className={`p-3 bg-amber-900 rounded flex flex-col items-center weather-${weatherCategory}`}
     >
       <h4 className="font-bold mb-1">{dayName}</h4>
-      <div className="text-xs mb-2">{weatherDescription}</div>
-      <div className="weather-icon mb-2">
+      <div className="weather-icon mb-3">
         <WeatherIcon weatherCode={weatherCode} size="medium" />
       </div>
       <div className="flex justify-between w-full text-sm">
