@@ -2,6 +2,7 @@ import {
   getWeatherDescription,
   getWeatherCategory,
 } from "../utils/weatherCodeUtils";
+import WeatherIcon from "./WeatherIcon";
 
 const HourlyForecast = ({ hour, temperature, weatherCode }) => {
   // Format the hour (assuming hour is in the format "2023-09-23T12:00")
@@ -16,7 +17,10 @@ const HourlyForecast = ({ hour, temperature, weatherCode }) => {
       className={`flex flex-col items-center p-3 bg-blue-700 rounded weather-${weatherCategory}`}
     >
       <div className="font-semibold">{formattedHour}</div>
-      <div className="text-2xl my-2">
+      <div className="my-2">
+        <WeatherIcon weatherCode={weatherCode} size="small" />
+      </div>
+      <div className="text-xl mb-1">
         {temperature !== undefined ? `${Math.round(temperature)}°` : "N/A"}
       </div>
       <div className="text-xs text-blue-200 text-center">

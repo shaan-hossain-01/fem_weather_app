@@ -9,10 +9,15 @@ const MainData = ({ data }) => {
     wind_speed_10m: windSpeed,
     precipitation,
     relative_humidity_2m: humidity,
+    weather_code: weatherCode,
   } = data.current || {};
   return (
     <div className="flex-2 flex flex-col gap-8">
-      <MainTemp location={location} actualTemperature={actualTemperature} />
+      <MainTemp
+        location={location}
+        actualTemperature={actualTemperature}
+        weatherCode={weatherCode}
+      />
       <div className="flex-1 flex gap-6">
         <MainOthers data={feelsLikeTemperature} topic={"Feels Like"} />
         <MainOthers data={precipitation} topic={"Precipitation"} />

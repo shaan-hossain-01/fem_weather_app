@@ -2,6 +2,7 @@ import {
   getWeatherDescription,
   getWeatherCategory,
 } from "../utils/weatherCodeUtils";
+import WeatherIcon from "./WeatherIcon";
 
 const DailyForecast = ({
   day,
@@ -32,8 +33,7 @@ const DailyForecast = ({
       <h4 className="font-bold mb-1">{dayName}</h4>
       <div className="text-xs mb-2">{weatherDescription}</div>
       <div className="weather-icon mb-2">
-        {/* We could add actual weather icons here in the future */}
-        {weatherCode}
+        <WeatherIcon weatherCode={weatherCode} size="medium" />
       </div>
       <div className="flex justify-between w-full text-sm">
         <div className="font-semibold">
