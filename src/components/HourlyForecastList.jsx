@@ -3,15 +3,12 @@ import HourlyForecast from "./HourlyForecast";
 const HourlyForecastList = ({ data }) => {
   // Check if data exists before proceeding
   if (!data || !data.hourly) {
-    console.log("No hourly data available");
     return (
       <div className="flex flex-1 bg-blue-800 gap-4 p-4 rounded">
         No hourly forecast data available
       </div>
     );
   }
-
-  console.log("Hourly forecast data:", data.hourly);
 
   // Get the arrays directly with safe fallbacks
   const time = Array.isArray(data.hourly.time) ? data.hourly.time : [];
