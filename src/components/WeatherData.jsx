@@ -1,4 +1,5 @@
 import DailyForecastItem from "./DailyForecastItem";
+import HourlyForecastList from "./HourlyForecastList";
 import MainData from "./MainData";
 
 const WeatherData = ({ data }) => {
@@ -30,7 +31,10 @@ const WeatherData = ({ data }) => {
         </div>
       </div>
 
-      <div className="bg-blue-600 h-full w-full"></div>
+      <div className="bg-blue-800 h-full w-full flex flex-col gap-4 p-4 rounded">
+        <h3 className="text-lg font-semibold">Hourly forecast</h3>
+        <HourlyForecastList data={data} />
+      </div>
     </div>
   );
 };
