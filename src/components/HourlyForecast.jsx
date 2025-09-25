@@ -3,7 +3,20 @@ import WeatherIcon from "./WeatherIcon";
 
 const HourlyForecast = ({ hour, temperature, weatherCode }) => {
   // Format the hour (assuming hour is in the format "2023-09-23T12:00")
-  const formattedHour = hour ? new Date(hour).getHours() + ":00" : "N/A";
+  const formatHour = (timeString) => {
+    if (!timeString) return "N/A";
+
+    const date = new Date(timeString);
+    const hours = date.getHours();
+
+    // Convert to 12-hour format with AM/PM
+    const hour12 = hours % 12 || 12;
+    const amPm = hours >= 12 ? "PM" : "AM";
+
+    return `${hour12}${amPm}`;
+  };
+
+  const formattedHour = formatHour(hour);
 
   // Get weather category for styling
   const weatherCategory = getWeatherCategory(weatherCode);

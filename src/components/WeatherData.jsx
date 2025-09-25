@@ -1,24 +1,36 @@
+import { useState, useEffect } from "react";
 import DailyForecastItem from "./DailyForecastItem";
 import HourlyForecastList from "./HourlyForecastList";
 import MainData from "./MainData";
+import DaySelector from "./DaySelector";
 
 const WeatherData = ({ data }) => {
+  const [selectedDay, setSelectedDay] = useState(null);
+  const [availableDays, setAvailableDays] = useState([]);
+
+  // Extract available days from hourly data
+  useEffect(() => {
+    if (data?.hourly?.time && Array.isArray(data.hourly.time)) {
+      // Get unique days from hourly forecast times
+      const uniqueDays = data.hourly.time.reduce((days, timeStr) => {
+        // Get the date part only (without time) to group by day
+        const dateOnly = timeStr.split("T")[0];
+        if (!days.includes(dateOnly)) {
+          days.push(dateOnly);
+        }
+        return days;
+      }, []);
+
+      setAvailableDays(uniqueDays);
+
+      // Set the first day as default selected
+      if (uniqueDays.length > 0 && !selectedDay) {
+        setSelectedDay(uniqueDays[0]);
+      }
+    }
+  }, [data, selectedDay]);
+
   if (!data) return <p>No data available</p>;
-  // These give better output in the console
-
-  console.log("Weather data:", data); // Labeled object
-  console.log("%c Weather Data", "color: green; font-weight: bold", data); // Styled console
-
-  // Check if daily data exists and its structure
-  if (data.daily) {
-    console.log("Daily data structure:", {
-      hasTimes: Array.isArray(data.daily.time),
-      timesLength: data.daily.time?.length || 0,
-      hasMaxTemp: Array.isArray(data.daily.temperature_2m_max),
-      hasMinTemp: Array.isArray(data.daily.temperature_2m_min),
-      hasWeatherCode: Array.isArray(data.daily.weathercode),
-    });
-  }
 
   return (
     <div className="grid grid-cols-3 gap-4 min-h-96 mt-12 h-[693px]">
@@ -32,8 +44,17 @@ const WeatherData = ({ data }) => {
       </div>
 
       <div className="bg-blue-800 h-full w-full flex flex-col gap-4 p-4 rounded">
-        <h3 className="text-lg font-semibold">Hourly forecast</h3>
-        <HourlyForecastList data={data} />
+        <div className="flex justify-between items-center">
+          <h3 className="text-lg font-semibold">Hourly forecast</h3>
+          {availableDays.length > 0 && (
+            <DaySelector
+              days={availableDays}
+              selectedDay={selectedDay}
+              onSelectDay={setSelectedDay}
+            />
+          )}
+        </div>
+        <HourlyForecastList data={data} selectedDay={selectedDay} />
       </div>
     </div>
   );
