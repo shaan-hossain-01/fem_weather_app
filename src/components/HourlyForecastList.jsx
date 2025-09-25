@@ -21,23 +21,40 @@ const HourlyForecastList = ({ data, selectedDay }) => {
     ? data.hourly.weathercode
     : [];
 
-  // Filter data for the selected day or use default behavior
+  // Get the current time and set up variables for filtering
+  const now = new Date();
   let filteredIndices = [];
   let hasValidData = false;
 
   if (selectedDay) {
-    // Filter indices for the selected day
-    filteredIndices = time.reduce((indices, timeStr, index) => {
-      // Check if this timestring belongs to the selected day
+    // First filter times for the selected day
+    const dayIndices = time.reduce((indices, timeStr, index) => {
       if (timeStr.startsWith(selectedDay)) {
         indices.push(index);
       }
       return indices;
     }, []);
+
+    // Now find the current hour within that day
+    const currentHourIndex = dayIndices.findIndex((index) => {
+      const forecastTime = new Date(time[index]);
+      return forecastTime > now;
+    });
+
+    // If we're looking at today or a future day
+    if (currentHourIndex >= 0) {
+      // Get the next 8 hours starting from the current hour
+      const startPosition = currentHourIndex;
+      const endPosition = Math.min(startPosition + 8, dayIndices.length);
+      filteredIndices = dayIndices.slice(startPosition, endPosition);
+    } else {
+      // For past days, just show the first 8 hours of that day
+      filteredIndices = dayIndices.slice(0, Math.min(8, dayIndices.length));
+    }
+
     hasValidData = filteredIndices.length > 0;
   } else {
-    // Fallback to original behavior - next 8 hours
-    const now = new Date();
+    // No day selected, just show next 8 hours from now across any day
     const currentHourIndex = time.findIndex((timeStr) => {
       const forecastTime = new Date(timeStr);
       return forecastTime > now;
@@ -73,8 +90,10 @@ const HourlyForecastList = ({ data, selectedDay }) => {
           </div>
         ) : (
           <p>
-            No hourly forecast data available for{" "}
-            {selectedDay ? new Date(selectedDay).toLocaleDateString() : "today"}
+            No forecast data available for the next 8 hours
+            {selectedDay
+              ? ` on ${new Date(selectedDay).toLocaleDateString()}`
+              : ""}
           </p>
         )}
       </div>

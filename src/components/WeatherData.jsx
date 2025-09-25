@@ -45,7 +45,7 @@ const WeatherData = ({ data }) => {
 
       <div className="bg-blue-800 h-full w-full flex flex-col gap-4 p-4 rounded">
         <div className="flex justify-between items-center">
-          <h3 className="text-lg font-semibold">Hourly forecast</h3>
+          <h3 className="text-lg font-semibold">Next 8 hours</h3>
           {availableDays.length > 0 && (
             <DaySelector
               days={availableDays}
