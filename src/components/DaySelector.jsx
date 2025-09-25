@@ -41,37 +41,27 @@ const DaySelector = ({ days, selectedDay, onSelectDay }) => {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <button
-        className="bg-blue-700 hover:bg-blue-600 text-white py-2 px-4 rounded flex items-center space-x-2"
+      <div
+        className="flex items-center gap-2.5 px-4 py-2 bg-neutral-800 rounded-lg cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span>{getDayName(selectedDay)}</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className={`h-4 w-4 transition-transform duration-300 ${
-            isOpen ? "rotate-180" : ""
-          }`}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
-          />
-        </svg>
-      </button>
+        <div className="font-medium">{getDayName(selectedDay)}</div>
+        <img
+          src="/src/assets/images/icon-dropdown.svg"
+          alt="Arrow Down"
+          style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0)" }}
+          className="transition-transform duration-300"
+        />
+      </div>
 
       {isOpen && (
-        <div className="absolute left-0 mt-1 w-48 bg-blue-800 rounded-lg shadow-lg z-10">
+        <div className="absolute right-0 mt-1 w-64 bg-neutral-800 rounded-lg shadow-lg z-10">
           <div className="py-1">
             {days.map((day) => (
               <button
                 key={day}
-                className={`block w-full text-left px-4 py-2 hover:bg-blue-700 ${
-                  day === selectedDay ? "bg-blue-600" : ""
+                className={`block w-full text-left px-4 py-2 hover:bg-neutral-700 ${
+                  day === selectedDay ? "bg-blue-700" : ""
                 }`}
                 onClick={() => {
                   onSelectDay(day);
